@@ -175,6 +175,14 @@ public class RbyIGTChecker {
 						gb.hold(0);
 						gb.runUntil("joypadOverworld");
 					}
+				} else {
+    					if(destTile != null) {
+        					if(destTile.isSolid()) {
+            						gb.hold(input);
+            						gb.frameAdvance();
+            						gb.runUntil("joypadOverworld");
+        					}
+    					}
 				}
 				return Failure.NO_FAILURE;
 			case A:
