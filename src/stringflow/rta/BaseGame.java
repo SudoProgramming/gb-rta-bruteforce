@@ -5,11 +5,14 @@ import stringflow.rta.util.IO;
 import stringflow.rta.util.NamedList;
 import stringflow.rta.util.TextFile;
 
+import sudotrainer.gen1.Data.Enums.PokemonGames;
+
 public abstract class BaseGame {
 	
 	protected NamedList<Address> addressList;
 	protected NamedList<Strat> stratList;
 	protected NamedList<Species> speciesList;
+	protected PokemonGames game;
 	private String igtPrefix;
 	private int hRandomAdd;
 	private int hRandomSub;
@@ -94,5 +97,9 @@ public abstract class BaseGame {
 	
 	public String getIgtPrefix() {
 		return igtPrefix;
+	}
+
+	public PokemonGames getGame() {
+		return game;
 	}
 }
