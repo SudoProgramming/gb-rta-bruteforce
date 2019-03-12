@@ -1,6 +1,6 @@
 package stringflow.rta.encounterigt;
 
-public interface IPrintFunc {
+public interface IPrintFunc<T> {
 
-	String get(EncounterIGTResult result);
+	String get(T value);
 }

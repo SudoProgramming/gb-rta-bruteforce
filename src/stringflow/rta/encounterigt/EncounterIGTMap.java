@@ -70,11 +70,11 @@ public class EncounterIGTMap extends ArrayList<EncounterIGTResult> {
 				      result -> String.format("Encounter at [%d#%d,%d]: %s%s lv%d DVs %04X rng %s %s %s %s %s %s", result.getMap(), result.getX(), result.getY(), result.getGender() == Gender.GENDERLESS ? "" : result.getGender().getName() + " ", result.getSpeciesName(), result.getLevel(), result.getHexDVs(), result.getRNG(), writeYoloballs ? String.valueOf(result.getYoloball()) : "", writeYoloballs ? String.valueOf(result.getSelectYoloball()) : "", writeYoloballs ? String.valueOf(result.getRedbarYoloball()) : "", writeYoloballs ? String.valueOf(result.getRedbarYoloball()) : "", writeNpcTimers ? "npctimers " + result.getNpcTimers() : ""));
 	}
 	
-	public void print(PrintStream target, IPrintFunc noEncounterFunc, IPrintFunc encounterFunc) {
+	public void print(PrintStream target, IPrintFunc<EncounterIGTResult> noEncounterFunc, IPrintFunc<EncounterIGTResult> encounterFunc) {
 		print(target, null, noEncounterFunc, encounterFunc);
 	}
 	
-	public void print(PrintStream target, IPrintFunc hitSpinnerFunc, IPrintFunc noEncounterFunc, IPrintFunc encounterFunc) {
+	public void print(PrintStream target, IPrintFunc<EncounterIGTResult> hitSpinnerFunc, IPrintFunc<EncounterIGTResult> noEncounterFunc, IPrintFunc<EncounterIGTResult> encounterFunc) {
 		forEach(result -> {
 			String igt = String.format("[%d][%d] ", result.getIgt().getSeconds(), result.getIgt().getFrames());
 			if(result.getSpecies() == 0) {
@@ -90,13 +90,13 @@ public class EncounterIGTMap extends ArrayList<EncounterIGTResult> {
 		});
 	}
 
-	public void print(PrintStream target, LinkedHashMap<Function<EncounterIGTResult, Boolean>, IPrintFunc> printMethods) {
+	public void print(PrintStream target, LinkedHashMap<Function<EncounterIGTResult, Boolean>, IPrintFunc<EncounterIGTResult>> printMethods) {
 		forEach(result -> {
 			boolean hasPrinted = false;
 				//String igt = String.format("[%d][%d] ", result.getIgt().getSeconds(), result.getIgt().getFrames());
-				for (Map.Entry<Function<EncounterIGTResult, Boolean>, IPrintFunc> entry : printMethods.entrySet()) {
+				for (Map.Entry<Function<EncounterIGTResult, Boolean>, IPrintFunc<EncounterIGTResult>> entry : printMethods.entrySet()) {
 					Function<EncounterIGTResult, Boolean> conditionalFunction = entry.getKey();
-					IPrintFunc printFunc = entry.getValue();
+					IPrintFunc<EncounterIGTResult> printFunc = entry.getValue();
 					if (conditionalFunction.apply(result)) {
 						if (hasPrinted) {
 							target.print(" | ");
@@ -108,6 +108,14 @@ public class EncounterIGTMap extends ArrayList<EncounterIGTResult> {
 				target.println();
 			}
 		);
+	}
+
+	public void printSummary(PrintStream target) {
+
+	}
+
+	public void printSummary(PrintStream target, String printSummaryUnFormatted) {
+		target.println();
 	}
 	
 	public EncounterIGTMap filter(Predicate<EncounterIGTResult> visitor) {
