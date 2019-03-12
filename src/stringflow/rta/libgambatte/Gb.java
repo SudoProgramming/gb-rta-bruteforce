@@ -4,6 +4,7 @@ import com.sun.jna.Memory;
 import com.sun.jna.Pointer;
 import stringflow.rta.Address;
 import stringflow.rta.BaseGame;
+import stringflow.rta.IGTState;
 import stringflow.rta.libgambatte.display.Display;
 import stringflow.rta.libgambatte.display.IDisplayUpdateCallback;
 import stringflow.rta.util.ArrayUtils;
@@ -35,6 +36,8 @@ public class Gb {
 	public static final int AUDIO_BUFFER_SIZE = (35112 + 2064) * 2;
 	public static final int NUM_SAMPLES_PER_FRAME = 35112;
 	public static final int ADDRESS_BUFFER_SIZE = 32;
+
+	private ArrayList<IGTState> initialStates;
 	
 	private Libgambatte lib;
 	private Pointer gbHandle;
@@ -257,7 +260,15 @@ public class Gb {
 	public int getRandomState() {
 		return (getRandomAdd() << 8) | getRandomSub();
 	}
-	
+
+	public ArrayList<IGTState> getInitialStates() {
+		return initialStates;
+	}
+
+	public void setInitialStates(ArrayList<IGTState> states) {
+		initialStates = states;
+	}
+
 	public BaseGame getGame() {
 		return game;
 	}

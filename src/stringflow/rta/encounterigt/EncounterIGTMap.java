@@ -1,5 +1,6 @@
 package stringflow.rta.encounterigt;
 
+import java.util.function.Function;
 import stringflow.rta.Gender;
 import stringflow.rta.GenderRatio;
 import stringflow.rta.Species;
@@ -8,9 +9,8 @@ import stringflow.rta.util.ArrayUtils;
 import stringflow.rta.util.IGTTimeStamp;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.*;
+import java.util.concurrent.Callable;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -88,6 +88,26 @@ public class EncounterIGTMap extends ArrayList<EncounterIGTResult> {
 			}
 			target.flush();
 		});
+	}
+
+	public void print(PrintStream target, LinkedHashMap<Function<EncounterIGTResult, Boolean>, IPrintFunc> printMethods) {
+		forEach(result -> {
+			boolean hasPrinted = false;
+				//String igt = String.format("[%d][%d] ", result.getIgt().getSeconds(), result.getIgt().getFrames());
+				for (Map.Entry<Function<EncounterIGTResult, Boolean>, IPrintFunc> entry : printMethods.entrySet()) {
+					Function<EncounterIGTResult, Boolean> conditionalFunction = entry.getKey();
+					IPrintFunc printFunc = entry.getValue();
+					if (conditionalFunction.apply(result)) {
+						if (hasPrinted) {
+							target.print(" | ");
+						}
+						target.print(printFunc.get(result));
+						hasPrinted = true;
+					}
+				}
+				target.println();
+			}
+		);
 	}
 	
 	public EncounterIGTMap filter(Predicate<EncounterIGTResult> visitor) {

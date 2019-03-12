@@ -4,12 +4,14 @@ import stringflow.rta.Address;
 import stringflow.rta.Strat;
 import stringflow.rta.libgambatte.IInjectCallback;
 
+import sudotrainer.gen1.Data.Enums.PokemonGames;
+
 import static stringflow.rta.Joypad.*;
 
 public class PokeYellow extends Gen1Game {
 	
-	public PokeYellow() {
-		super("roms/pokeyellow.sym", 0xFFF5, 0xFFD3, 0xFFD4);
+	public PokeYellow(String romPath) {
+		super(romPath, 0xFFF5, 0xFFD3, 0xFFD4);
 		addressList.add(new Address("igtInject", 0x1C79D6));
 		addressList.add(new Address("catchSuccess", 0x355B1));
 		addressList.add(new Address("catchFailure", 0x35681));
@@ -28,6 +30,11 @@ public class PokeYellow extends Gen1Game {
 		stratList.add(new Strat("cont", "_cont", 0, new Object[] { "joypad"}, new Integer[] { A }, new Integer[] { 1 }));
 		stratList.add(new Strat("backout", "_backout", 140, new Object[] { "joypad"}, new Integer[] { B }, new Integer[] { 1 }));
 		stratList.add(new Strat("title", "_title", 0, new Object[] { "joypad"}, new Integer[] { START }, new Integer[] { 1 }));
+		this.game = PokemonGames.Yellow;
+	}
+
+	public PokeYellow() {
+		this("roms/pokeyellow.sym");
 	}
 	
 	public void writeChecksum(byte sram[]) {

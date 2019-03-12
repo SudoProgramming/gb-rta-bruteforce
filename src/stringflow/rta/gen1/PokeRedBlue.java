@@ -3,6 +3,7 @@ package stringflow.rta.gen1;
 import stringflow.rta.Address;
 import stringflow.rta.Strat;
 import stringflow.rta.libgambatte.IInjectCallback;
+import sudotrainer.gen1.Data.Enums.PokemonGames;
 
 import static stringflow.rta.Joypad.*;
 
@@ -25,6 +26,7 @@ public class PokeRedBlue extends Gen1Game {
 		stratList.add(new Strat("intro0", "_hop0", 0, new Object[] { "joypad" }, new Integer[] { UP | SELECT | B }, new Integer[] { 1 }));
 		stratList.add(new Strat("title", "", 0, new Object[] { "joypad" }, new Integer[] { START }, new Integer[] { 1 }));
 		stratList.add(new Strat("cont", "", 0, new Object[] { "joypad" }, new Integer[] { A }, new Integer[] { 1 }));
+		this.game = PokemonGames.Red;
 	}
 	
 	public void writeChecksum(byte sram[]) {
