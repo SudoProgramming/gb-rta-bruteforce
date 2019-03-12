@@ -25,12 +25,7 @@ Then you just run it and it will print all the found manips into a text file
 
 #### TODO
 
-- [X] IGT Checker refactor
-- [ ] Create an encounter sniffer (Taking inspiration and code snipets from RBYMoonBot)
-- [ ] Create a UI for IGT Checking
-- [ ] Create a UI for Encounter Searching
-- [ ] Create a persistent settings file
-- [ ] Release Alpha version of Slurpuff
+Current state of this project: https://github.com/SudoProgramming/gb-rta-bruteforce/projects/1
 
 #### Installation for Windows
 
