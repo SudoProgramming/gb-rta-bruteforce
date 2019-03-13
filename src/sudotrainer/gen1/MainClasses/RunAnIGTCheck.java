@@ -16,7 +16,7 @@ public class RunAnIGTCheck {
 
         Gen1Game game = new PokeYellow();
 
-        String path = "D A D U A R D";
+        String path = "U S_B U S_B U";
 
         String encounterSpecies = "Clefairy";
 
@@ -24,7 +24,7 @@ public class RunAnIGTCheck {
 
         Gen1IGTChecker igtChecker = new Gen1IGTChecker(game, path, encounterSpecies, aditionalParameters, null);
 
-        EncounterIGTMap map = igtChecker.CheckIGT(0, false);
+        EncounterIGTMap map = igtChecker.CheckIGT(5, false);
 
         IGTPrinter.PrintIGTSummary(map, encounterSpecies, path);
         IGTPrinter.PrintIGTForMap(map);

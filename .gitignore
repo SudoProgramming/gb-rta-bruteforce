@@ -8,6 +8,7 @@
 libgambatte/java/build/
 libgambatte/java/dist/
 out/
+GitCommitFile.txt
 
 # generated files
 libgambatte/include/mrwint_gbtasgen_Gb.h

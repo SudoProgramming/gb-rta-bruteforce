@@ -79,7 +79,8 @@ public class IGTPrinter {
     }
 
     public static void PrintIGTSummary(EncounterIGTMap map, PrintStream outputStream, String species, String path) {
-        outputStream.println(String.format("IGT SUCCESS: %d/60 [YOLOBALL SUCCESS (%d/60)] Average DVs [%s] - PATH: %s", map.filter(IGTPredicates.GetSpeciesPredicate(species)).size(), map.filter(IGTPredicates.GetSpeciesAndYoloballPredicate(species)).size(), ConvertDvs(GetAverageAttackDvsFromMap(map), GetAverageSpeedDvsFromMap(map), GetAverageDefDvsFromMap(map), GetAverageSpecialDvsFromMap(map)), path));
+        EncounterIGTMap gotEncounter = map.filter(IGTPredicates.GetSpeciesPredicate(species));
+        outputStream.println(String.format("IGT SUCCESS: %d/60 [YOLOBALL SUCCESS (%d/60)] Average DVs [%s] - PATH: %s", gotEncounter.size(), map.filter(IGTPredicates.GetSpeciesAndYoloballPredicate(species)).size(), ConvertDvs(GetAverageAttackDvsFromMap(gotEncounter), GetAverageDefDvsFromMap(gotEncounter), GetAverageSpeedDvsFromMap(gotEncounter), GetAverageSpecialDvsFromMap(gotEncounter)), path));
     }
 
     public static void PrintIGTSummary(EncounterIGTMap map, String species, String path) {
