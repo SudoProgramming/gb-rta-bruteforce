@@ -16,17 +16,19 @@ public class RunAnIGTCheck {
 
         Gen1Game game = new PokeYellow();
 
-        String path = "U S_B U S_B U";
+        String path = "U A U U U D U U U";
 
         String encounterSpecies = "Clefairy";
+
+        int targetLevel = 13;
 
         long aditionalParameters = RbyIGTChecker.YOLOBALL;
 
         Gen1IGTChecker igtChecker = new Gen1IGTChecker(game, path, encounterSpecies, aditionalParameters, null);
 
-        EncounterIGTMap map = igtChecker.CheckIGT(5, false);
+        EncounterIGTMap map = igtChecker.CheckIGT(0, false);
 
-        IGTPrinter.PrintIGTSummary(map, encounterSpecies, path);
+        IGTPrinter.PrintIGTSummary(map, encounterSpecies, targetLevel, path);
         IGTPrinter.PrintIGTForMap(map);
     }
 }

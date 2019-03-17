@@ -79,12 +79,28 @@ public class IGTPrinter {
     }
 
     public static void PrintIGTSummary(EncounterIGTMap map, PrintStream outputStream, String species, String path) {
-        EncounterIGTMap gotEncounter = map.filter(IGTPredicates.GetSpeciesPredicate(species));
-        outputStream.println(String.format("IGT SUCCESS: %d/60 [YOLOBALL SUCCESS (%d/60)] Average DVs [%s] - PATH: %s", gotEncounter.size(), map.filter(IGTPredicates.GetSpeciesAndYoloballPredicate(species)).size(), ConvertDvs(GetAverageAttackDvsFromMap(gotEncounter), GetAverageDefDvsFromMap(gotEncounter), GetAverageSpeedDvsFromMap(gotEncounter), GetAverageSpecialDvsFromMap(gotEncounter)), path));
+        PrintIGTSummary(map, outputStream, species, -1, path);
+    }
+
+    public static void PrintIGTSummary(EncounterIGTMap map, PrintStream outputStream, String species, int level, String path) {
+        EncounterIGTMap filteredEncounterResults;
+        EncounterIGTMap filteredYoloballResults;
+        if (level >= 0) {
+            filteredEncounterResults = map.filter(IGTPredicates.GetSpeciesAndLevelPredicate(species, level));
+            filteredYoloballResults = map.filter(IGTPredicates.GetSpeciesLevelAndYoloballPredicate(species, level));
+        }
+        else {
+            filteredEncounterResults = map.filter(IGTPredicates.GetSpeciesPredicate(species));
+            filteredYoloballResults = map.filter(IGTPredicates.GetSpeciesAndYoloballPredicate(species));
+        }
+        outputStream.println(String.format("IGT SUCCESS: %d/60 [YOLOBALL SUCCESS (%d/60)] Average DVs [%s] - PATH: %s", filteredEncounterResults.size(), filteredYoloballResults.size(), ConvertDvs(GetAverageAttackDvsFromMap(filteredEncounterResults), GetAverageDefDvsFromMap(filteredEncounterResults), GetAverageSpeedDvsFromMap(filteredEncounterResults), GetAverageSpecialDvsFromMap(filteredEncounterResults)), path));
+    }
+
+    public static void PrintIGTSummary(EncounterIGTMap map, String species, int level, String path) {
+        PrintIGTSummary(map, System.out, species, level, path);
     }
 
     public static void PrintIGTSummary(EncounterIGTMap map, String species, String path) {
         PrintIGTSummary(map, System.out, species, path);
     }
-
 }
